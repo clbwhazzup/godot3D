@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://chfbjllm0uuop"]
+
+[ext_resource type="Script" uid="uid://qcm1l661vfsy" path="res://scenes/character.gd" id="1_agfs1"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dkjbp"]
+
+[node name="Character" type="CharacterBody3D"]
+script = ExtResource("1_agfs1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.884714, 0)
+shape = SubResource("CapsuleShape3D_dkjbp")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.39227, 0)
+
+[node name="Panel" type="Panel" parent="Camera3D"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Camera3D/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "damn"
