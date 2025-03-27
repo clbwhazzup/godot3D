@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://da7i5ydo1k3jm"]
+[gd_scene load_steps=11 format=3 uid="uid://da7i5ydo1k3jm"]
 
 [ext_resource type="PackedScene" uid="uid://chfbjllm0uuop" path="res://scenes/character.tscn" id="1_014kd"]
 [ext_resource type="Script" uid="uid://cys3wpsq7yd4l" path="res://scenes/touch_controls.gd" id="2_bswci"]
@@ -22,6 +22,8 @@ background_mode = 2
 sky = SubResource("Sky_bswci")
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_bswci"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_rus8k"]
 
 [node name="level1" type="Node"]
 
@@ -83,49 +85,28 @@ offset_right = 245.0
 grow_vertical = 0
 
 [node name="Forward" type="TouchScreenButton" parent="TouchControls/Overlay/Directional"]
-position = Vector2(111, 25)
+position = Vector2(100, 12)
 scale = Vector2(50, 50)
 texture_normal = SubResource("CanvasTexture_bswci")
 action = "move_forward"
 
-[node name="Back" type="Button" parent="TouchControls/Overlay/Directional"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -36.0
-offset_top = -72.0
-offset_right = 36.0
-grow_horizontal = 2
-grow_vertical = 0
-action_mode = 0
+[node name="Back" type="TouchScreenButton" parent="TouchControls/Overlay/Directional"]
+position = Vector2(100, 187)
+scale = Vector2(50, 50)
+texture_normal = SubResource("CanvasTexture_bswci")
+action = "move_back"
 
-[node name="Left" type="Button" parent="TouchControls/Overlay/Directional"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -36.0
-offset_right = 72.0
-offset_bottom = 36.0
-grow_vertical = 2
-action_mode = 0
+[node name="Left" type="TouchScreenButton" parent="TouchControls/Overlay/Directional"]
+position = Vector2(9, 100)
+scale = Vector2(50, 50)
+texture_normal = SubResource("CanvasTexture_bswci")
+action = "move_left"
 
-[node name="Right" type="Button" parent="TouchControls/Overlay/Directional"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -72.0
-offset_top = -36.0
-offset_bottom = 36.0
-grow_horizontal = 0
-grow_vertical = 2
-action_mode = 0
+[node name="Right" type="TouchScreenButton" parent="TouchControls/Overlay/Directional"]
+position = Vector2(192, 100)
+scale = Vector2(50, 50)
+texture_normal = SubResource("CanvasTexture_bswci")
+action = "move_right"
 
 [node name="Other" type="Control" parent="TouchControls/Overlay"]
 layout_mode = 1
@@ -139,26 +120,7 @@ offset_top = -245.0
 grow_horizontal = 0
 grow_vertical = 0
 
-[node name="Jump" type="Button" parent="TouchControls/Overlay/Other"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -36.0
-offset_top = -36.0
-offset_right = 36.0
-offset_bottom = 36.0
-grow_horizontal = 2
-grow_vertical = 2
-action_mode = 0
-
-[connection signal="button_down" from="TouchControls/Overlay/Directional/Back" to="TouchControls" method="_on_back_button_down"]
-[connection signal="button_up" from="TouchControls/Overlay/Directional/Back" to="TouchControls" method="_on_back_button_up"]
-[connection signal="button_down" from="TouchControls/Overlay/Directional/Left" to="TouchControls" method="_on_left_button_down"]
-[connection signal="button_up" from="TouchControls/Overlay/Directional/Left" to="TouchControls" method="_on_left_button_up"]
-[connection signal="button_down" from="TouchControls/Overlay/Directional/Right" to="TouchControls" method="_on_right_button_down"]
-[connection signal="button_up" from="TouchControls/Overlay/Directional/Right" to="TouchControls" method="_on_right_button_up"]
-[connection signal="button_down" from="TouchControls/Overlay/Other/Jump" to="TouchControls" method="_on_jump_button_down"]
-[connection signal="button_up" from="TouchControls/Overlay/Other/Jump" to="TouchControls" method="_on_jump_button_up"]
+[node name="Jump" type="TouchScreenButton" parent="TouchControls/Overlay/Other"]
+position = Vector2(100, 100)
+scale = Vector2(50, 50)
+texture_normal = SubResource("CanvasTexture_rus8k")
