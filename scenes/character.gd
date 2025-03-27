@@ -21,16 +21,19 @@ var jump_vel: Vector3 # Jumping velocity
 var paused: = false
 
 @onready var camera: Camera3D = $Camera3D
+@onready var overlay: Control = $"../TouchControls/Overlay"
 
 func _ready() -> void:
-	capture_mouse()
+	pass
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion: #Mouse for camera
+		capture_mouse()
 		look_dir = event.relative * 0.001
 		if mouse_captured: _rotate_camera()
 
 	if event is InputEventScreenDrag: #Drag for camera
+		release_mouse()
 		look_dir = event.relative * 0.001
 		if not mouse_captured: _rotate_camera()
 
@@ -62,12 +65,12 @@ func _physics_process(delta: float) -> void:
 func capture_mouse() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	mouse_captured = true
-	print(mouse_captured)
+	overlay.hide()
 
 func release_mouse() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	mouse_captured = false
-	print(mouse_captured)
+	overlay.hide()
 
 func _rotate_camera(sens_mod: float = 1.0) -> void:
 	camera.rotation.y -= look_dir.x * camera_sens * sens_mod
