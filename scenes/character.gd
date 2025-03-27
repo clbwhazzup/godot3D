@@ -38,6 +38,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if not mouse_captured: _rotate_camera()
 
 	if event is InputEventScreenTouch: #Touch for interact
+		release_mouse()
 		interact()
 
 	if Input.is_action_just_pressed(&"exit"): 
@@ -70,7 +71,7 @@ func capture_mouse() -> void:
 func release_mouse() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	mouse_captured = false
-	overlay.hide()
+	overlay.show()
 
 func _rotate_camera(sens_mod: float = 1.0) -> void:
 	camera.rotation.y -= look_dir.x * camera_sens * sens_mod
