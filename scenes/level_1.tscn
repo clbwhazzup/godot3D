@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://da7i5ydo1k3jm"]
+[gd_scene load_steps=10 format=3 uid="uid://da7i5ydo1k3jm"]
 
 [ext_resource type="PackedScene" uid="uid://chfbjllm0uuop" path="res://scenes/character.tscn" id="1_014kd"]
 [ext_resource type="Script" uid="uid://cys3wpsq7yd4l" path="res://scenes/touch_controls.gd" id="2_bswci"]
@@ -20,6 +20,8 @@ sky_material = SubResource("PhysicalSkyMaterial_014kd")
 [sub_resource type="Environment" id="Environment_014kd"]
 background_mode = 2
 sky = SubResource("Sky_bswci")
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_bswci"]
 
 [node name="level1" type="Node"]
 
@@ -80,16 +82,11 @@ offset_top = -245.0
 offset_right = 245.0
 grow_vertical = 0
 
-[node name="Forward" type="Button" parent="TouchControls/Overlay/Directional"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -36.0
-offset_right = 36.0
-offset_bottom = 72.0
-grow_horizontal = 2
-action_mode = 0
+[node name="Forward" type="TouchScreenButton" parent="TouchControls/Overlay/Directional"]
+position = Vector2(111, 25)
+scale = Vector2(20, 20)
+texture_normal = SubResource("CanvasTexture_bswci")
+action = "forward"
 
 [node name="Back" type="Button" parent="TouchControls/Overlay/Directional"]
 layout_mode = 1
@@ -157,8 +154,6 @@ grow_horizontal = 2
 grow_vertical = 2
 action_mode = 0
 
-[connection signal="button_down" from="TouchControls/Overlay/Directional/Forward" to="TouchControls" method="_on_forward_button_down"]
-[connection signal="button_up" from="TouchControls/Overlay/Directional/Forward" to="TouchControls" method="_on_forward_button_up"]
 [connection signal="button_down" from="TouchControls/Overlay/Directional/Back" to="TouchControls" method="_on_back_button_down"]
 [connection signal="button_up" from="TouchControls/Overlay/Directional/Back" to="TouchControls" method="_on_back_button_up"]
 [connection signal="button_down" from="TouchControls/Overlay/Directional/Left" to="TouchControls" method="_on_left_button_down"]
