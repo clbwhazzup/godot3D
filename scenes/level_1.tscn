@@ -84,9 +84,9 @@ grow_vertical = 0
 
 [node name="Forward" type="TouchScreenButton" parent="TouchControls/Overlay/Directional"]
 position = Vector2(111, 25)
-scale = Vector2(20, 20)
+scale = Vector2(50, 50)
 texture_normal = SubResource("CanvasTexture_bswci")
-action = "forward"
+action = "move_forward"
 
 [node name="Back" type="Button" parent="TouchControls/Overlay/Directional"]
 layout_mode = 1
