@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://da7i5ydo1k3jm"]
+[gd_scene load_steps=9 format=3 uid="uid://da7i5ydo1k3jm"]
 
 [ext_resource type="PackedScene" uid="uid://chfbjllm0uuop" path="res://scenes/character.tscn" id="1_014kd"]
+[ext_resource type="Script" uid="uid://cys3wpsq7yd4l" path="res://scenes/touch_controls.gd" id="2_bswci"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bswci"]
 
@@ -9,6 +10,16 @@ size = Vector3(20, 1, 20)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_bswci"]
 size = Vector3(20, 1, 20)
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_014kd"]
+ground_color = Color(0.28157, 0.353278, 0.531479, 1)
+
+[sub_resource type="Sky" id="Sky_bswci"]
+sky_material = SubResource("PhysicalSkyMaterial_014kd")
+
+[sub_resource type="Environment" id="Environment_014kd"]
+background_mode = 2
+sky = SubResource("Sky_bswci")
 
 [node name="level1" type="Node"]
 
@@ -28,5 +39,119 @@ debug_color = Color(0.0719037, 0.186064, 0.298163, 1)
 [node name="Character" parent="." instance=ExtResource("1_014kd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.838213, 0)
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_014kd")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
 transform = Transform3D(1, 0, 0, 0, 0.562112, 0.827061, 0, -0.827061, 0.562112, 0, 11.7271, 10.507)
+shadow_enabled = true
+
+[node name="StaticObjects" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="StaticObjects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15202, 7.5085)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="StaticObjects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15202, 5.55998)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="StaticObjects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.65223, 1.15202, 5.55998)
+
+[node name="TouchControls" type="AspectRatioContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("2_bswci")
+
+[node name="Control" type="Control" parent="TouchControls"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Container" type="Control" parent="TouchControls/Control"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -245.0
+offset_right = 245.0
+grow_vertical = 0
+
+[node name="Forward" type="Button" parent="TouchControls/Control/Container"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -36.0
+offset_right = 36.0
+offset_bottom = 72.0
+grow_horizontal = 2
+action_mode = 0
+
+[node name="Back" type="Button" parent="TouchControls/Control/Container"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -36.0
+offset_top = -72.0
+offset_right = 36.0
+grow_horizontal = 2
+grow_vertical = 0
+action_mode = 0
+
+[node name="Left" type="Button" parent="TouchControls/Control/Container"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -36.0
+offset_right = 72.0
+offset_bottom = 36.0
+grow_vertical = 2
+action_mode = 0
+
+[node name="Right" type="Button" parent="TouchControls/Control/Container"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -72.0
+offset_top = -36.0
+offset_bottom = 36.0
+grow_horizontal = 0
+grow_vertical = 2
+action_mode = 0
+
+[node name="Jump" type="Button" parent="TouchControls/Control/Container"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 725.0
+offset_top = -24.0
+offset_right = 797.0
+offset_bottom = 48.0
+grow_horizontal = 0
+grow_vertical = 2
+action_mode = 0
+
+[connection signal="button_down" from="TouchControls/Control/Container/Forward" to="TouchControls" method="_on_forward_button_down"]
+[connection signal="button_up" from="TouchControls/Control/Container/Forward" to="TouchControls" method="_on_forward_button_up"]
+[connection signal="button_down" from="TouchControls/Control/Container/Back" to="TouchControls" method="_on_back_button_down"]
+[connection signal="button_up" from="TouchControls/Control/Container/Back" to="TouchControls" method="_on_back_button_up"]
+[connection signal="button_down" from="TouchControls/Control/Container/Left" to="TouchControls" method="_on_left_button_down"]
+[connection signal="button_up" from="TouchControls/Control/Container/Left" to="TouchControls" method="_on_left_button_up"]
+[connection signal="button_down" from="TouchControls/Control/Container/Right" to="TouchControls" method="_on_right_button_down"]
+[connection signal="button_up" from="TouchControls/Control/Container/Right" to="TouchControls" method="_on_right_button_up"]
+[connection signal="button_down" from="TouchControls/Control/Container/Jump" to="TouchControls" method="_on_jump_button_down"]
+[connection signal="button_up" from="TouchControls/Control/Container/Jump" to="TouchControls" method="_on_jump_button_up"]

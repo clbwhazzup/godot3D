@@ -1,36 +1,103 @@
-extends CharacterBody3D
-# How fast the player moves in meters per second.
-@export var speed = 14
-# The downward acceleration when in the air, in meters per second squared.
-@export var fall_acceleration = 7
-@onready var CAMERA = %Camera3D
-var target_velocity = Vector3.ZERO
+class_name Player extends CharacterBody3D
 
+@export_range(1, 35, 1) var speed: float = 8 # m/s
+@export_range(10, 400, 1) var acceleration: float = 35 # m/s^2
 
-func _physics_process(delta):
-	var direction = Vector3.ZERO
+@export_range(0.1, 3.0, 0.1) var jump_height: float = 1 # m
+@export_range(0.1, 3.0, 0.1, "or_greater") var camera_sens: float = 5
 
-	if Input.is_action_pressed("move_right"):
-		direction.x += 1
-	if Input.is_action_pressed("move_left"):
-		direction.x -= 1
-	if Input.is_action_pressed("move_back"):
-		direction.z += 1
-	if Input.is_action_pressed("move_forward"):
-		direction.z -= 1
+var jumping: bool = false
+var mouse_captured: bool = false
 
-	if direction != Vector3.ZERO:
-		direction = direction.normalized()
-		$Pivot.basis = Basis.looking_at(direction)
+var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
-	# Ground Velocity
-	target_velocity.x = direction.x * speed
-	target_velocity.z = direction.z * speed
+var move_dir: Vector2 # Input direction for movement
+var look_dir: Vector2 # Input direction for look/aim
 
-	# Vertical Velocity
-	if not is_on_floor(): # If in the air, fall towards the floor. Literally gravity
-		target_velocity.y = target_velocity.y - (fall_acceleration * delta)
+var walk_vel: Vector3 # Walking velocity 
+var grav_vel: Vector3 # Gravity velocity 
+var jump_vel: Vector3 # Jumping velocity
 
-	# Moving the Character
-	velocity = target_velocity
+var paused: = false
+
+@onready var camera: Camera3D = $Camera3D
+
+func _ready() -> void:
+	capture_mouse()
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion: #Mouse for camera
+		look_dir = event.relative * 0.001
+		if mouse_captured: _rotate_camera()
+
+	if event is InputEventScreenDrag: #Drag for camera
+		look_dir = event.relative * 0.001
+		if not mouse_captured: _rotate_camera()
+
+	if event is InputEventScreenTouch: #Touch for interact
+		interact()
+
+	if Input.is_action_just_pressed(&"exit"): 
+		get_tree().quit()
+
+func _physics_process(delta: float) -> void:
+	if Input.is_action_just_pressed(&"pause") && paused == false:
+		release_mouse()
+		paused = true
+	elif Input.is_action_just_pressed(&"pause") && paused == true:
+		capture_mouse()
+		paused = false
+
+	if Input.is_action_just_pressed(&"interact"):
+		interact()
+	if Input.is_action_just_pressed(&"jump"): 
+		jumping = true
+	if mouse_captured: 
+		_handle_joypad_camera_rotation(delta)
+
+	velocity = _walk(delta) + _gravity(delta) + _jump(delta)
+
 	move_and_slide()
+
+func capture_mouse() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	mouse_captured = true
+	print(mouse_captured)
+
+func release_mouse() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	mouse_captured = false
+	print(mouse_captured)
+
+func _rotate_camera(sens_mod: float = 1.0) -> void:
+	camera.rotation.y -= look_dir.x * camera_sens * sens_mod
+	camera.rotation.x = clamp(camera.rotation.x - look_dir.y * camera_sens * sens_mod, -1.5, 1.5)
+
+func _handle_joypad_camera_rotation(delta: float, sens_mod: float = 1.0) -> void:
+	var joypad_dir: Vector2 = Input.get_vector(&"look_left", &"look_right", &"look_up", &"look_down")
+	if joypad_dir.length() > 0:
+		look_dir += joypad_dir * delta
+		_rotate_camera(sens_mod)
+		look_dir = Vector2.ZERO
+
+func _walk(delta: float) -> Vector3:
+	move_dir = Input.get_vector(&"move_left", &"move_right", &"move_forward", &"move_back")
+	var _forward: Vector3 = camera.global_transform.basis * Vector3(move_dir.x, 0, move_dir.y)
+	var walk_dir: Vector3 = Vector3(_forward.x, 0, _forward.z).normalized()
+	walk_vel = walk_vel.move_toward(walk_dir * speed * move_dir.length(), acceleration * delta)
+	return walk_vel
+
+func _gravity(delta: float) -> Vector3:
+	grav_vel = Vector3.ZERO if is_on_floor() else grav_vel.move_toward(Vector3(0, velocity.y - gravity, 0), gravity * delta)
+	return grav_vel
+
+func _jump(delta: float) -> Vector3:
+	if jumping:
+		if is_on_floor(): jump_vel = Vector3(0, sqrt(4 * jump_height * gravity), 0)
+		jumping = false
+		return jump_vel
+	jump_vel = Vector3.ZERO if is_on_floor() or is_on_ceiling_only() else jump_vel.move_toward(Vector3.ZERO, gravity * delta)
+	return jump_vel
+
+func interact():
+	pass
