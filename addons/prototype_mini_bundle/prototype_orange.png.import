@@ -3,16 +3,16 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d4kc0u2i4n6a0"
-path.s3tc="res://.godot/imported/prototype_orange.png-3054e0e1bcf4a408f73d0a4bfaf2c5e2.s3tc.ctex"
+path.etc2="res://.godot/imported/prototype_orange.png-3054e0e1bcf4a408f73d0a4bfaf2c5e2.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://addons/prototype_mini_bundle/prototype_orange.png"
-dest_files=["res://.godot/imported/prototype_orange.png-3054e0e1bcf4a408f73d0a4bfaf2c5e2.s3tc.ctex"]
+dest_files=["res://.godot/imported/prototype_orange.png-3054e0e1bcf4a408f73d0a4bfaf2c5e2.etc2.ctex"]
 
 [params]
 

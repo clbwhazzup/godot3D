@@ -71,3 +71,4 @@ grow_vertical = 0
 position = Vector2(100, 100)
 scale = Vector2(75, 75)
 texture_normal = SubResource("CanvasTexture_rus8k")
+action = "jump"

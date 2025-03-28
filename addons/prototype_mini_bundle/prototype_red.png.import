@@ -3,16 +3,16 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cg8plwfeaglkc"
-path.s3tc="res://.godot/imported/prototype_red.png-2cadb35f0d62d1dcd1767fd67d25ee7c.s3tc.ctex"
+path.etc2="res://.godot/imported/prototype_red.png-2cadb35f0d62d1dcd1767fd67d25ee7c.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://addons/prototype_mini_bundle/prototype_red.png"
-dest_files=["res://.godot/imported/prototype_red.png-2cadb35f0d62d1dcd1767fd67d25ee7c.s3tc.ctex"]
+dest_files=["res://.godot/imported/prototype_red.png-2cadb35f0d62d1dcd1767fd67d25ee7c.etc2.ctex"]
 
 [params]
 
