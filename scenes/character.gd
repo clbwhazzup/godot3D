@@ -6,6 +6,8 @@ class_name Player extends CharacterBody3D
 @export_range(0.1, 3.0, 0.1) var jump_height: float = 1 # m
 @export_range(0.1, 3.0, 0.1, "or_greater") var camera_sens: float = 5
 
+@export var checkpoint: Vector3 = Vector3(0,0,0)
+
 var jumping: bool = false
 var mouse_captured: bool = false
 
@@ -19,9 +21,11 @@ var grav_vel: Vector3 # Gravity velocity
 var jump_vel: Vector3 # Jumping velocity
 
 var paused: = false
+var air_time = 0.0
 
 @onready var camera: Camera3D = $Camera3D
 @onready var overlay: Control = $"../TouchControls/Overlay"
+@onready var character: Player = $"."
 
 func _ready() -> void:
 	pass
@@ -45,12 +49,12 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_tree().quit()
 
 func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed(&"pause") && paused == false:
-		release_mouse()
-		paused = true
-	elif Input.is_action_just_pressed(&"pause") && paused == true:
-		capture_mouse()
-		paused = false
+	#if Input.is_action_just_pressed(&"pause") && paused == false:
+	#	release_mouse()
+	#	paused = true
+	#elif Input.is_action_just_pressed(&"pause") && paused == true:
+	#	capture_mouse()
+	#	paused = false
 
 	if Input.is_action_just_pressed(&"interact"):
 		interact()
@@ -60,6 +64,9 @@ func _physics_process(delta: float) -> void:
 		_handle_joypad_camera_rotation(delta)
 
 	velocity = _walk(delta) + _gravity(delta) + _jump(delta)
+	
+	if air_time >= 6.0:
+		reset_to_checkpoint()
 
 	move_and_slide()
 
@@ -93,6 +100,14 @@ func _walk(delta: float) -> Vector3:
 
 func _gravity(delta: float) -> Vector3:
 	grav_vel = Vector3.ZERO if is_on_floor() else grav_vel.move_toward(Vector3(0, velocity.y - gravity, 0), gravity * delta)
+	
+	if is_on_floor():
+		if air_time >= 2.0:
+			reset_to_checkpoint()
+		air_time = 0.0
+	else:
+		air_time += delta
+
 	return grav_vel
 
 func _jump(delta: float) -> Vector3:
@@ -102,6 +117,9 @@ func _jump(delta: float) -> Vector3:
 		return jump_vel
 	jump_vel = Vector3.ZERO if is_on_floor() or is_on_ceiling_only() else jump_vel.move_toward(Vector3.ZERO, gravity * delta)
 	return jump_vel
+
+func reset_to_checkpoint():
+	character.transform.origin = checkpoint
 
 func interact():
 	pass

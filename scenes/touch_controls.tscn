@@ -1,0 +1,73 @@
+[gd_scene load_steps=4 format=3 uid="uid://5gqubsodjyww"]
+
+[ext_resource type="Script" uid="uid://cys3wpsq7yd4l" path="res://scenes/touch_controls.gd" id="1_6wx45"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_bswci"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_rus8k"]
+
+[node name="TouchControls" type="AspectRatioContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+ratio = 1.6205
+script = ExtResource("1_6wx45")
+
+[node name="Overlay" type="Control" parent="."]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Directional" type="Control" parent="Overlay"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 68.0
+offset_top = -245.0
+offset_right = 313.0
+grow_vertical = 0
+
+[node name="Forward" type="TouchScreenButton" parent="Overlay/Directional"]
+position = Vector2(74, -8)
+scale = Vector2(75, 75)
+texture_normal = SubResource("CanvasTexture_bswci")
+action = "move_forward"
+
+[node name="Back" type="TouchScreenButton" parent="Overlay/Directional"]
+position = Vector2(74, 167)
+scale = Vector2(75, 75)
+texture_normal = SubResource("CanvasTexture_bswci")
+action = "move_back"
+
+[node name="Left" type="TouchScreenButton" parent="Overlay/Directional"]
+position = Vector2(-17, 80)
+scale = Vector2(75, 75)
+texture_normal = SubResource("CanvasTexture_bswci")
+action = "move_left"
+
+[node name="Right" type="TouchScreenButton" parent="Overlay/Directional"]
+position = Vector2(166, 80)
+scale = Vector2(75, 75)
+texture_normal = SubResource("CanvasTexture_bswci")
+action = "move_right"
+
+[node name="Other" type="Control" parent="Overlay"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -315.0
+offset_top = -245.0
+offset_right = -70.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Jump" type="TouchScreenButton" parent="Overlay/Other"]
+position = Vector2(100, 100)
+scale = Vector2(75, 75)
+texture_normal = SubResource("CanvasTexture_rus8k")

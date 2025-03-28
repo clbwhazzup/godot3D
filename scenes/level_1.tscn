@@ -1,15 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://da7i5ydo1k3jm"]
+[gd_scene load_steps=10 format=3 uid="uid://da7i5ydo1k3jm"]
 
 [ext_resource type="PackedScene" uid="uid://chfbjllm0uuop" path="res://scenes/character.tscn" id="1_014kd"]
-[ext_resource type="Script" uid="uid://cys3wpsq7yd4l" path="res://scenes/touch_controls.gd" id="2_bswci"]
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bswci"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_014kd"]
-size = Vector3(20, 1, 20)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_bswci"]
-size = Vector3(20, 1, 20)
+[ext_resource type="PackedScene" uid="uid://5gqubsodjyww" path="res://scenes/touch_controls.tscn" id="2_bswci"]
+[ext_resource type="Material" uid="uid://dgjiw8udooecr" path="res://addons/prototype_mini_bundle/M_prototype_dark.tres" id="2_fcfvj"]
+[ext_resource type="Shader" uid="uid://npeblkdcfhb0" path="res://addons/ursc/canvas_item/fade.gdshader" id="3_5xbjy"]
+[ext_resource type="PackedScene" uid="uid://dt0qgenkfe16o" path="res://scenes/Checkpoint.tscn" id="3_rus8k"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_014kd"]
 ground_color = Color(0.28157, 0.353278, 0.531479, 1)
@@ -21,109 +16,91 @@ sky_material = SubResource("PhysicalSkyMaterial_014kd")
 background_mode = 2
 sky = SubResource("Sky_bswci")
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_bswci"]
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_rus8k"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4nkto"]
+shader = ExtResource("3_5xbjy")
+shader_parameter/mode = -1
 
 [node name="level1" type="Node"]
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-physics_material_override = SubResource("PhysicsMaterial_bswci")
-constant_linear_velocity = Vector3(0, 0.04, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
-mesh = SubResource("BoxMesh_014kd")
-skeleton = NodePath("../..")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(0.999998, -0.000793767, 0.00177727, 0.000796845, 0.999998, -0.00172383, -0.00177589, 0.00172525, 0.999997, 0, 0, 0)
-shape = SubResource("BoxShape3D_bswci")
-debug_color = Color(0.0719037, 0.186064, 0.298163, 1)
-
 [node name="Character" parent="." instance=ExtResource("1_014kd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.838213, 0)
+unique_name_in_owner = true
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 1.52525, 0)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_014kd")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
-transform = Transform3D(1, 0, 0, 0, 0.562112, 0.827061, 0, -0.827061, 0.562112, 0, 11.7271, 10.507)
+transform = Transform3D(0.853596, 0.430845, -0.292824, 0, 0.562112, 0.827061, 0.520935, -0.705976, 0.479817, 0, 11.7271, 10.507)
 shadow_enabled = true
 
 [node name="StaticObjects" type="CSGCombiner3D" parent="."]
+material_override = ExtResource("2_fcfvj")
 use_collision = true
 
 [node name="CSGBox3D" type="CSGBox3D" parent="StaticObjects"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15202, 7.5085)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.17047, 2.69146, 4.55986)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="StaticObjects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.59836, 3.16554, 4.55986)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="StaticObjects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2121, 3.65188, 4.55986)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="StaticObjects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.854, 4.58151, 2.13652)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="StaticObjects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.949, 5.11758, -1.35933)
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="StaticObjects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.8149, 5.67958, -3.48799)
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="StaticObjects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.6579, 6.26679, -3.48799)
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="StaticObjects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.4419, 7.43693, -0.963312)
+
+[node name="CSGBox3D12" type="CSGBox3D" parent="StaticObjects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.3922, 11.422, -7.27738)
+
+[node name="CSGBox3D13" type="CSGBox3D" parent="StaticObjects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.7501, 10.8845, -5.56749)
+
+[node name="CSGBox3D14" type="CSGBox3D" parent="StaticObjects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.4446, 10.3896, -3.49201)
+
+[node name="CSGBox3D15" type="CSGBox3D" parent="StaticObjects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.3535, 9.42098, -2.11466)
+
+[node name="CSGBox3D17" type="CSGBox3D" parent="StaticObjects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.8435, 10.0507, -2.11466)
+
+[node name="CSGBox3D16" type="CSGBox3D" parent="StaticObjects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.2766, 8.41961, -2.5174)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="StaticObjects"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15202, 5.55998)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.277249, 2.21081, 5.65344)
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="StaticObjects"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.65223, 1.15202, 5.55998)
 
-[node name="TouchControls" type="AspectRatioContainer" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-ratio = 1.6205
-script = ExtResource("2_bswci")
+[node name="CSGBox3D4" type="CSGBox3D" parent="StaticObjects"]
+size = Vector3(20, 1, 20)
 
-[node name="Overlay" type="Control" parent="TouchControls"]
-layout_mode = 2
-mouse_filter = 2
+[node name="TouchControls" parent="." instance=ExtResource("2_bswci")]
+material = SubResource("ShaderMaterial_4nkto")
 
-[node name="Directional" type="Control" parent="TouchControls/Overlay"]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 68.0
-offset_top = -245.0
-offset_right = 313.0
-grow_vertical = 0
+[node name="Checkpoints" type="Node" parent="."]
 
-[node name="Forward" type="TouchScreenButton" parent="TouchControls/Overlay/Directional"]
-position = Vector2(74, -8)
-scale = Vector2(75, 75)
-texture_normal = SubResource("CanvasTexture_bswci")
-action = "move_forward"
+[node name="Checkpoint" parent="Checkpoints" instance=ExtResource("3_rus8k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.15936, 3.25986, 4.5765)
 
-[node name="Back" type="TouchScreenButton" parent="TouchControls/Overlay/Directional"]
-position = Vector2(74, 167)
-scale = Vector2(75, 75)
-texture_normal = SubResource("CanvasTexture_bswci")
-action = "move_back"
+[node name="Checkpoint2" parent="Checkpoints" instance=ExtResource("3_rus8k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.8413, 5.11991, 2.15014)
 
-[node name="Left" type="TouchScreenButton" parent="TouchControls/Overlay/Directional"]
-position = Vector2(-17, 80)
-scale = Vector2(75, 75)
-texture_normal = SubResource("CanvasTexture_bswci")
-action = "move_left"
+[node name="Checkpoint3" parent="Checkpoints" instance=ExtResource("3_rus8k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.4357, 7.99937, -0.97216)
 
-[node name="Right" type="TouchScreenButton" parent="TouchControls/Overlay/Directional"]
-position = Vector2(166, 80)
-scale = Vector2(75, 75)
-texture_normal = SubResource("CanvasTexture_bswci")
-action = "move_right"
-
-[node name="Other" type="Control" parent="TouchControls/Overlay"]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -315.0
-offset_top = -245.0
-offset_right = -70.0
-grow_horizontal = 0
-grow_vertical = 0
-
-[node name="Jump" type="TouchScreenButton" parent="TouchControls/Overlay/Other"]
-position = Vector2(100, 100)
-scale = Vector2(75, 75)
-texture_normal = SubResource("CanvasTexture_rus8k")
+[node name="Checkpoint4" parent="Checkpoints" instance=ExtResource("3_rus8k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.3861, 11.9844, -7.28623)
