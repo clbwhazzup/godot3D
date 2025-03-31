@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://drrb3wypllojn"]
+
+[ext_resource type="Script" uid="uid://b0fhxf16mxn5m" path="res://scenes/zombie_manager.gd" id="1_rdd38"]
+
+[node name="ZombieManager" type="Node"]
+script = ExtResource("1_rdd38")
+
+[connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]

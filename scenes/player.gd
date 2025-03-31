@@ -24,11 +24,10 @@ var paused: = false
 var air_time = 0.0
 
 @onready var camera: Camera3D = $Camera3D
-@onready var overlay: Control = $"../TouchControls/Overlay"
+#@onready var overlay: Control = $"../TouchControls/Overlay"
 @onready var character: Player = $"."
+@onready var gun: StaticBody3D = $Camera3D/HandSlot/Pistol
 
-func _ready() -> void:
-	pass
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion: #Mouse for camera
@@ -55,11 +54,18 @@ func _physics_process(delta: float) -> void:
 	#elif Input.is_action_just_pressed(&"pause") && paused == true:
 	#	capture_mouse()
 	#	paused = false
-
 	if Input.is_action_just_pressed(&"interact"):
 		interact()
+		
 	if Input.is_action_just_pressed(&"jump"): 
 		jumping = true
+		
+	if Input.is_action_just_pressed(&"fire"):
+		if gun:
+			gun.fire()
+		else:
+			pass # knifing
+
 	if mouse_captured: 
 		_handle_joypad_camera_rotation(delta)
 
@@ -73,12 +79,12 @@ func _physics_process(delta: float) -> void:
 func capture_mouse() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	mouse_captured = true
-	overlay.hide()
+	#overlay.hide()
 
 func release_mouse() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	mouse_captured = false
-	overlay.show()
+	#overlay.show()
 
 func _rotate_camera(sens_mod: float = 1.0) -> void:
 	camera.rotation.y -= look_dir.x * camera_sens * sens_mod

@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://dn6y7ihvmgtru"]
+
+[ext_resource type="Script" uid="uid://dncuu1h8g26uw" path="res://scenes/zombie.gd" id="1_httt1"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4gx57"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_1vlb3"]
+
+[node name="Zombie" type="CharacterBody3D"]
+script = ExtResource("1_httt1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.884714, 0)
+shape = SubResource("CapsuleShape3D_4gx57")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.854584, 0)
+mesh = SubResource("CapsuleMesh_1vlb3")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+avoidance_enabled = true
+
+[connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_velocity_computed"]

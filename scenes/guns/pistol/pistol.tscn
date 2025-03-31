@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://csts15gk8kah8"]
+
+[ext_resource type="Script" uid="uid://dume65hqs6503" path="res://scenes/guns/pistol/pistol.gd" id="1_i76hi"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_qwxo0"]
+size = Vector3(0.575, 0.33, 0.13)
+
+[node name="Pistol" type="StaticBody3D"]
+script = ExtResource("1_i76hi")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.0625115, 0.244894, -0.327078)
+mesh = SubResource("BoxMesh_qwxo0")
+
+[node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.0574706, -0.0331283, -0.0927958)
+depth = 0.13
+polygon = PackedVector2Array(0.249, 0.361, -0.0625281, 0.00515664, -0.0423984, 0.463268, 0.423, 0.479, 0.69, 0.465)
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.40462, -0.823579)
+target_position = Vector3(0, 0, -1)

@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://chfbjllm0uuop"]
+
+[ext_resource type="Script" uid="uid://qcm1l661vfsy" path="res://scenes/player.gd" id="1_agfs1"]
+[ext_resource type="PackedScene" uid="uid://csts15gk8kah8" path="res://scenes/guns/pistol/pistol.tscn" id="2_g2els"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dkjbp"]
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_agfs1")
+speed = 6.0
+acceleration = 30.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.884714, 0)
+shape = SubResource("CapsuleShape3D_dkjbp")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.39227, 0)
+fov = 90.0
+
+[node name="HandSlot" type="Node3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.702571, -0.474576, -0.742416)
+
+[node name="Pistol" parent="Camera3D/HandSlot" instance=ExtResource("2_g2els")]

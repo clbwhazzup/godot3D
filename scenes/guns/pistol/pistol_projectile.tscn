@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://djk2aadsa2bik"]
+
+[ext_resource type="Script" uid="uid://w5dgxq13meem" path="res://scenes/guns/pistol/pistol_projectile.gd" id="1_h8ois"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_h8ois"]
+radius = 0.004
+height = 0.012
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_25syl"]
+radius = 0.004
+height = 0.012
+
+[node name="PistolProjectile" type="Area3D"]
+script = ExtResource("1_h8ois")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(3.295, 0, 0, 0, -1.44029e-07, 3.295, 0, -3.295, -1.44029e-07, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_h8ois")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(3.295, 0, 0, 0, -1.44029e-07, 3.295, 0, -3.295, -1.44029e-07, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_25syl")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -1)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
